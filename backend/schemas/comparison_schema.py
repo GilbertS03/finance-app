@@ -1,22 +1,25 @@
 # schemas/comparison_schema.py
 
-from sqlmodel import SQLModel
+from pydantic import BaseModel, ConfigDict
 from uuid import UUID
 from datetime import datetime
-from typing import Optional
 from schemas.saved_scenario_schema import ScenarioResponse
 
-class ComparisonCreate(SQLModel):
+class ComparisonBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     comparison_title: str
+
+class ComparisonCreate(ComparisonBase):
     scenario_id_1: UUID
     scenario_id_2: UUID
 
-class ComparisonItemResponse(SQLModel):
+class ComparisonItemResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     item_id: UUID
     display_position: int
     scenario: ScenarioResponse
 
-class ComparisonResponse(SQLModel):
+class ComparisonResponse(ComparisonBase):
     comparison_id: UUID
     comparison_title: staticmethod
     created_at: datetime

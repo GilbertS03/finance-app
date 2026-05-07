@@ -1,21 +1,22 @@
 # schemas/users_schema.py
 
-from sqlmodel import SQLModel
+from pydantic import BaseModel, ConfigDict
 from uuid import UUID
 from datetime import datetime
 
-class UserRegister(SQLModel):
+class UserBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     full_name: str
     email: str
+
+class UserRegister(UserBase):
     password: str
 
-class UserLogin(SQLModel):
+class UserLogin(BaseModel):
     email: str
     password: str
 
-class UserResponse(SQLModel):
+class UserResponse(UserBase):
     user_id: UUID
-    full_name: str
-    email: str
     created_at: datetime
     

@@ -1,20 +1,20 @@
 # schemas/saved_scenario_schema.py
 
-from sqlmodel import SQLModel
+from pydantic import BaseModel, ConfigDict
 from uuid import UUID
 from datetime import datetime
 from typing import Optional
 
-class ScenarioSave(SQLModel):
-    scenario_name: Optional[str] = None
+class ScenarioBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     calculator_type: str
     input_values: dict
     calculated_result: dict
 
-class ScenarioResponse(SQLModel):
+class ScenarioSave(ScenarioBase):
+    scenario_name: Optional[str] = None
+
+class ScenarioResponse(ScenarioBase):
     scenario_id: UUID
     scenario_name: str
-    calculator_type: str
-    input_values: dict
-    calculated_result: dict
     saved_at: datetime
