@@ -19,5 +19,5 @@ class SavedScenario(SQLModel, table=True):
     calculator_type: str = Field(max_length=50)
     input_values: dict = Field(sa_column=Column(JSONB, nullable=False))
     calculated_result: dict = Field(sa_column=Column(JSONB, nullable=False))
-    saved_at: datetime = Field(default_factory=datetime.now(timezone.utc))
+    saved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     

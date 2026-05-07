@@ -17,4 +17,4 @@ class User(SQLModel, table=True):
     full_name: str = Field(max_length=255)
     email: str = Field(max_length=255, unique=True)
     hashed_password: str = Field(max_length=255)
-    created_at: datetime = Field(default_factory=datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

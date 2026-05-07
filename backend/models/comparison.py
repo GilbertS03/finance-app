@@ -15,4 +15,4 @@ class Comparison(SQLModel, table=True):
     )
     user_id: UUID = Field(foreign_key="users.user_id")
     comparison_title: str = Field(max_length=255)
-    created_at: datetime = Field(default_factory=datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
