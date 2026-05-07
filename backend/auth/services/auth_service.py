@@ -6,10 +6,10 @@ from fastapi import HTTPException, status
 from models.users import User
 from auth.utils.hashing import hash_password, verify_password
 from auth.utils.jtw import create_access_token
-from auth.schemas.token import Token
+from auth.schemas.token import LoginResponse
 from schemas.users_schema import UserRegister, UserResponse
 
-def register_user(db: Session, user_data: UserRegister) -> UserResponse:
+def register_user(db: Session, user_data: UserRegister) -> LoginResponse:
     existing_user = db.exec(select(User).where(User.email == user_data.email)).first()
     if(existing_user):
         raise HTTPException(
@@ -25,9 +25,15 @@ def register_user(db: Session, user_data: UserRegister) -> UserResponse:
     db.commit()
     db.refresh(new_user)
 
-    return UserResponse.model_validate(new_user)
+    access_token = create_access_token(new_user.user_id)
+    return LoginResponse(
+        access_token=access_token,
+        user_id=new_user.user_id,
+        full_name=new_user.full_name,
+        email=new_user.email
+    )
 
-def login_user(db: Session, email: str, password: str) -> Token:
+def login_user(db: Session, email: str, password: str) -> LoginResponse:
     user = db.exec(select(User).where(User.email == email)).first()
     if not user:
         raise HTTPException(
@@ -40,4 +46,9 @@ def login_user(db: Session, email: str, password: str) -> Token:
             detail="Invalid email or password"
         )
     access_token = create_access_token(user.user_id)
-    return Token(access_token=access_token)
+    return LoginResponse(
+        access_token=access_token,
+        user_id=user.user_id,
+        full_name=user.full_name,
+        email=user.email
+    )
