@@ -1,6 +1,5 @@
 # finance/savings.py
 
-# finance/savings.py
 import math
 
 def required_monthly_savings(F: float, i: float, n: float) -> float:
