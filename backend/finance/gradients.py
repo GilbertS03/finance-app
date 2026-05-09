@@ -10,7 +10,7 @@ def present_value_arithmetic_graident(G: float, i: float, n: float) -> float:
         i = Interest rate per period
         n = Number of periods
     """
-    pass
+    return G * ((1 + i) ** n - i * n - 1) / (i ** 2 * (1 + i) ** n)
 
 def future_value_arithmetic_gradient(G: float, i: float, n: float) -> float:
     """
@@ -20,7 +20,7 @@ def future_value_arithmetic_gradient(G: float, i: float, n: float) -> float:
         i = Interest rate per period
         n = Number of periods
     """
-    pass
+    return G * ((1 + i) ** n - i * n - 1) / (i ** 2)
 
 def annuity_from_arithmetic_gradient(G: float, i: float, n: float) -> float:
     """
@@ -30,7 +30,7 @@ def annuity_from_arithmetic_gradient(G: float, i: float, n: float) -> float:
         i = Interest rate per period
         n = Number of periods
     """
-    pass
+    return G * (1 / i - n / ((1 + i) **n - 1))
 
 def present_value_geometric_gradient(A1: float, g: float, i: float, n: float) -> float:
     """
@@ -44,7 +44,9 @@ def present_value_geometric_gradient(A1: float, g: float, i: float, n: float) ->
         i  = Interest rate per period
         n  = Number of periods
     """
-    pass
+    if math.isclose(g, i):
+        return A1 * n / (1 + i)
+    return A1 * (1 - (1 + g) ** n * (1 + i) ** -n / (i - g))
 
 def future_value_geometric_gradient(A1: float, g: float, i: float, n: float) -> float:
     """
@@ -58,7 +60,9 @@ def future_value_geometric_gradient(A1: float, g: float, i: float, n: float) -> 
         i  = Interest rate per period
         n  = Number of periods
     """
-    pass
+    if math.isclose(i, g):
+        return A1 * n * (1 + i) ** (n - 1)
+    return A1 * ((1 + i) ** n - (1 + g) ** n) / (1 - g)
 
 def total_present_value_arithmetic(A: float, G: float, i: float, n: float) -> float:
     """
@@ -69,7 +73,8 @@ def total_present_value_arithmetic(A: float, G: float, i: float, n: float) -> fl
         i = Interest rate per period
         n = Number of periods
     """
-    pass
+    from finance.annuities import present_value_annuity
+    return present_value_annuity(A, n, i) + present_value_arithmetic_graident(G, i, n)
 
 def total_present_value_geometric(A1: float, g: float, i: float, n: float) -> float:
     """
@@ -80,5 +85,4 @@ def total_present_value_geometric(A1: float, g: float, i: float, n: float) -> fl
         i  = Interest rate per period
         n  = Number of periods
     """
-    pass
-
+    return present_value_geometric_gradient(A1, g, i, n)

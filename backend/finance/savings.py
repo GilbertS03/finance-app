@@ -11,7 +11,7 @@ def required_monthly_savings(F: float, i: float, n: float) -> float:
     i = Interest rate per period
     n = Number of periods
     """
-    pass
+    return F * i / ((1 + i) ** n - 1)
 
 def savings_future_value(A: float, i: float, n: float) -> float:
     """
@@ -21,7 +21,7 @@ def savings_future_value(A: float, i: float, n: float) -> float:
     i = Interest rate per period
     n = Number of periods
     """
-    pass
+    return A * ((1 + i) ** n - 1) / i
 
 def periods_to_reach_goal(F: float, A: float, i: float) -> float:
     """
@@ -31,7 +31,7 @@ def periods_to_reach_goal(F: float, A: float, i: float) -> float:
     A = Payment per period
     i = Interest rate per period
     """
-    pass
+    return math.log(1 + (F * i / A)) / math.log(1 + i)
 
 def savings_schedule(A: float, i: float, n: int) -> list[dict]:
     """
@@ -47,7 +47,25 @@ def savings_schedule(A: float, i: float, n: int) -> list[dict]:
     i = Interest rate per period
     n = Number of periods
     """
-    pass
+    schedule = []
+    balance = 0.0
+    total_contributed = 0.0
+    total_interest = 0.0
+    
+    for period in range(1, 1 + n):
+        interest_earned = balance * i
+        balance += interest_earned + A
+        total_contributed += A
+        total_interest += interest_earned
+
+        schedule.append({
+            "period" : period,
+            "contribution" : round(A, 2),
+            "interest_earned" : round(interest_earned, 2),
+            "ending_balance" : round(balance, 2),
+            "total_contributed" : round(total_contributed, 2),
+            "total_interest" : round(total_interest, 2)
+        })
 
 def savings_with_initial_deposit(P: float, A: float, i: float, n: float) -> float:
     """
@@ -58,7 +76,9 @@ def savings_with_initial_deposit(P: float, A: float, i: float, n: float) -> floa
     i = Interest rate per period
     n = Number of periods
     """
-    pass
+    from finance.tvm import future_value
+    from finance.annuities import future_value_annuity
+    return future_value(P, n, i) + future_value_annuity(A, n, i)
 
 def inflation_adjusted_goal(F: float, inflation: float, n: float) -> float:
     """
@@ -68,7 +88,7 @@ def inflation_adjusted_goal(F: float, inflation: float, n: float) -> float:
     inflation = Annual inflation rate
     n         = Number of years
     """
-    pass
+    return F * (1 + inflation) ** n
 
 def real_interest_rate(i: float, inflation: float) -> float:
     """
@@ -77,4 +97,4 @@ def real_interest_rate(i: float, inflation: float) -> float:
     i         = Nominal interest rate
     inflation = Inflation rate
     """
-    pass
+    return (1 + i) / (1 + inflation) - 1

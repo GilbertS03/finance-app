@@ -11,7 +11,10 @@ def bond_price(F: float, C: float, i: float, n: int) -> float:
     i = Yield to maturity per period
     n = Number of periods
     """
-    pass
+    pv_coupons = C * ((1 + i) ** n - 1) / (i * (1 + i) ** n)
+    pv_face = F / (1 + i) ** n
+    return  
+
 def coupon_payment(F: float, r: float) -> float:
     """
     Coupon payment per period
@@ -19,7 +22,7 @@ def coupon_payment(F: float, r: float) -> float:
     F = Face value
     r = Coupon rate per period
     """
-    pass
+    return F * r
 
 def current_yield(C: float, P: float) -> float:
     """
@@ -28,7 +31,7 @@ def current_yield(C: float, P: float) -> float:
     C = Annual coupon payment
     P = Current bond price
     """
-    pass
+    return C / P
 
 def yield_to_maturity(F: float, C: float, P: float, n: int, precision: float = 1e-6) -> float:
     """
@@ -40,7 +43,20 @@ def yield_to_maturity(F: float, C: float, P: float, n: int, precision: float = 1
     n         = Number of periods
     precision = Acceptable margin of error
     """
-    pass
+    low, high = 0.0001, 1.0
+
+    for _ in range(1000):
+        mid = (low + high) / 2
+        price = bond_price(F, C, mid, n)
+
+        if abs(price - P) < precision:
+            return mid
+        if price > P:
+            low = mid
+        else:
+            high = mid
+
+    return mid
 
 def bond_duration(F: float, C: float, i: float, n: int) -> float:
     """
@@ -52,7 +68,17 @@ def bond_duration(F: float, C: float, i: float, n: int) -> float:
     i = Yield to maturity per period
     n = Number of periods
     """
-    pass
+    price = bond_price(F, C, i, n)
+    weighted_sum = 0.0
+
+    for t in range(1, n + 1):
+        if t < n:
+            cf = C
+        else:
+            cf = C + F
+        pv_cf = cf / (1 + i) ** t
+        weighted_sum += t * pv_cf
+    return weighted_sum / price
 
 def bond_schedule(F: float, C: float, i: float, n: int) -> list[dict]:
     """
@@ -70,4 +96,22 @@ def bond_schedule(F: float, C: float, i: float, n: int) -> list[dict]:
     i = Yield to maturity per period
     n = Number of periods
     """
-    pass
+    schedule = []
+
+    for t in range(1, n + 1):
+        face_repaid = F if t == n else 0.0
+        total_cf = C + face_repaid
+        pv_coupon = C / (1 + i) ** t
+        pv_face = face_repaid / (1 + i) ** t
+        pv_total = total_cf / (1 + i) ** t
+
+        schedule.append({
+            "period" : t,
+            "coupon" : round(C, 2),
+            "pv_coupon" : round(pv_coupon, 2),
+            "face_repaid": round(face_repaid, 2),
+            "pv_face" : round(pv_face, 2),
+            "total_cf" : round(total_cf, 2),
+            "pv_total" : round(pv_total, 2)
+        })
+    return schedule
