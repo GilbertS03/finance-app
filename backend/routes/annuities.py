@@ -9,7 +9,7 @@ from finance.annuities import (
     perpetuity_present_value
 )
 
-router = APIRouter(prefix="/calc/annuities", tages=["annuities"])
+router = APIRouter(prefix="/calc/annuities", tags=["annuities"])
 
 @router.post("/fv")
 def calc_annuity_fv(req: AnnuityRequest):

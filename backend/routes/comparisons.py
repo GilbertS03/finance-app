@@ -6,7 +6,7 @@ from uuid import UUID
 from typing import Annotated
 
 from db.database import get_db
-from backend.auth.utils.jwt import get_current_user
+from auth.utils.jwt import get_current_user
 from auth.schemas.token import TokenData
 from services.comparison_service import(
     create_comparison, get_all_comparisons,
@@ -16,7 +16,7 @@ from schemas.comparison_schema import ComparisonCreate, ComparisonResponse
 
 router = APIRouter(prefix="/comparisons", tags=["comparisons"])
 
-@router.get("", response_model=[ComparisonResponse])
+@router.get("", response_model=list[ComparisonResponse])
 def list_comparisons(
     current_user: Annotated[TokenData, Depends(get_current_user)],
     db: Session = Depends(get_db)

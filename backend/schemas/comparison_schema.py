@@ -21,6 +21,6 @@ class ComparisonItemResponse(BaseModel):
 
 class ComparisonResponse(ComparisonBase):
     comparison_id: UUID
-    comparison_title: staticmethod
+    comparison_title: str
     created_at: datetime
     items: list[ComparisonItemResponse]

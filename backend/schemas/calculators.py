@@ -29,7 +29,7 @@ class GradientRequest(BaseModel):
     A: Optional[float] = None
     G: Optional[float] = None
     A1: Optional[float] = None
-    g = Optional[float] = None
+    g: Optional[float] = None
     i: float
     n: float
 

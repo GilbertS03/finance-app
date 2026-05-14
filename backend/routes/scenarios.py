@@ -6,7 +6,7 @@ from uuid import UUID
 from typing import Annotated
 
 from db.database import get_db
-from backend.auth.utils.jwt import get_current_user
+from auth.utils.jwt import get_current_user
 from auth.schemas.token import TokenData
 from services.scenario_service import(
     save_scenario, get_all_scenarios,
@@ -16,7 +16,7 @@ from schemas.saved_scenario_schema import ScenarioSave, ScenarioResponse
 
 router = APIRouter(prefix="/scenarios", tags=["scenarios"])
 
-router.get("", response_model=[ScenarioResponse])
+router.get("", response_model=list[ScenarioResponse])
 def list_scenarios(
         current_user: Annotated[TokenData, Depends(get_current_user)],
         db: Session= Depends(get_db)
