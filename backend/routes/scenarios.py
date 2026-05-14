@@ -16,7 +16,7 @@ from schemas.saved_scenario_schema import ScenarioSave, ScenarioResponse
 
 router = APIRouter(prefix="/scenarios", tags=["scenarios"])
 
-router.get("", response_model=list[ScenarioResponse])
+@router.get("", response_model=list[ScenarioResponse])
 def list_scenarios(
         current_user: Annotated[TokenData, Depends(get_current_user)],
         db: Session= Depends(get_db)

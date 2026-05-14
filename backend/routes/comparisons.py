@@ -46,3 +46,4 @@ def remove_comparison(
     db: Session = Depends(get_db)
 ):
     delete_comparison(db, current_user.user_id, comparison_id)
+    
