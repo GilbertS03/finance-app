@@ -1,3 +1,5 @@
+# schemas/calculators.py
+
 from pydantic import BaseModel
 from typing import Optional
 
@@ -32,6 +34,11 @@ class GradientRequest(BaseModel):
     n: float
 
 class LoanRequest(BaseModel):
+    P: float
+    i: float
+    n: int
+
+class MaxLoanRequest(BaseModel):
     A: float
     i: float
     n: float

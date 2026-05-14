@@ -1,3 +1,5 @@
+# schemas/__init__.py
+
 from .users_schema import UserBase, UserRegister, UserLogin, UserResponse
 from .saved_scenario_schema import ScenarioBase, ScenarioSave, ScenarioResponse
 from .comparison_schema import ComparisonBase, ComparisonCreate, ComparisonItemResponse, ComparisonResponse

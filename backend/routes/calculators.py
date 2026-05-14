@@ -1,9 +1,11 @@
 # routes/calculators.py
 
 from fastapi import APIRouter
-from finance.time_value import (
-    future_value, present_value, interest_rate,
-    periods, effective_interest_rate, continuous_compounding_fv
+from schemas.calculators import (
+    TimeValueRequest, EffectiveRateRequest, ContinuousRequest,
+    AnnuityRequest, GradientRequest, LoanRequest, MaxLoanRequest,
+    RemainingBalanceRequest, BondRequest, YTMRequest,
+    SavingsRequest, InflationRequest, RealRateRequest
 )
 from finance.annuities import (
     future_value_annuity, present_value_annuity,
@@ -31,7 +33,48 @@ from finance.savings import (
     savings_with_initial_deposit, inflation_adjusted_goal,
     real_interest_rate
 )
-from pydantic import BaseModel
-from typing import Optional
 
 router = APIRouter(prefix="/calc", tags=["calculators"])
+
+# ___Gradients__________________________________________________________________
+
+@router.post("/gradient/arithmetic-pv")
+def calc_arithmetic_pv(req: GradientRequest):
+    return {"result": present_value_arithmetic_gradient(req.G, req.i, req.n)}
+
+@router.post("/gradient/arithemtic-fv")
+def calc_arithmetic_fv(req: GradientRequest):
+    return {"result": future_value_arithmetic_gradient(req.G, req.i, req.n)}
+
+@router.post("/gradient/arithmetic-annuity")
+def calc_arithmetic_annuity(req: GradientRequest):
+    return {"result": annuity_from_arithmetic_gradient(req.G, req.i, req.n)}
+
+@router.post("/gradient/geometric-pv")
+def calc_geometric_pv(req: GradientRequest):
+    return {"result": present_value_geometric_gradient(req.A1, req.g, req.i, req.n)}
+
+@router.post("/gradient/geomtric-fv")
+def calc_geometric_fv(req: GradientRequest):
+    return {"result": future_value_geometric_gradient(req.A1, req.g, req.i, req.n)}
+
+@router.post("/gradient/total-arihmetic-pv")
+def calc_total_arithmetic_pv(req: GradientRequest):
+    return {"result": total_present_value_arithmetic(req.A, req.G, req.i, req.n)}
+
+@router.post("/gradient/total-geometric-pv")
+def calc_total_geometric_pv(req: GradientRequest):
+    return {"result": total_present_value_geometric(req.A1, req.g, req.i, req.n)}
+
+# ___Loan__________________________________________________________________________
+
+@router.post("/loan/payment")
+def calc_loan_payment(req: LoanRequest):
+    A = monthly_payment(req.P, req.i, req.n)
+    return {
+        "payment": round(A, 2),
+        "total_payment": round(total_payment(A, req.n), 2),
+        "total_interest": round(total_interest(req.P, A, req.n), 2)
+    } 
+
+@router.post("/loan/")

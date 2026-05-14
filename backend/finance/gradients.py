@@ -2,7 +2,7 @@
 
 import math
 
-def present_value_arithmetic_graident(G: float, i: float, n: float) -> float:
+def present_value_arithmetic_gradient(G: float, i: float, n: float) -> float:
     """
         Present Value of an Arithmetic Gradient (P/G)
         P = G * [(1 + i)^n - i*n - 1] / [i^2 * (1 + i)^n]
@@ -74,7 +74,7 @@ def total_present_value_arithmetic(A: float, G: float, i: float, n: float) -> fl
         n = Number of periods
     """
     from finance.annuities import present_value_annuity
-    return present_value_annuity(A, n, i) + present_value_arithmetic_graident(G, i, n)
+    return present_value_annuity(A, n, i) + present_value_arithmetic_gradient(G, i, n)
 
 def total_present_value_geometric(A1: float, g: float, i: float, n: float) -> float:
     """
