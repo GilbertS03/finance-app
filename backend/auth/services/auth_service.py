@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 
 from models.users import User
 from auth.utils.hashing import hash_password, verify_password
-from auth.utils.jtw import create_access_token
+from backend.auth.utils.jwt import create_access_token
 from auth.schemas.token import LoginResponse
 from schemas.users_schema import UserRegister, UserResponse
 

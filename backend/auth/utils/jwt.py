@@ -1,4 +1,4 @@
-# auth/utils/jtw.py
+# auth/utils/jwt.py
 
 from jose import JWTError, jwt
 from typing import Annotated
