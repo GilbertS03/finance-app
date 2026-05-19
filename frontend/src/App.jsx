@@ -5,6 +5,9 @@ import AppNavbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Calculators from "./pages/calculators/Calculators";
+import TimeValue from "./pages/calculators/TimeValue";
+import Annuities from "./pages/calculators/Annuities";
 
 function App() {
   return (
@@ -19,6 +22,30 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calculators"
+            element={
+              <ProtectedRoute>
+                <Calculators />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calculators/time-value"
+            element={
+              <ProtectedRoute>
+                <TimeValue />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calculators/annuities"
+            element={
+              <ProtectedRoute>
+                <Annuities />
               </ProtectedRoute>
             }
           />
