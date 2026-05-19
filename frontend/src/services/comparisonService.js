@@ -4,17 +4,17 @@ import api from '../api/api';
 
 export const saveComparison = async (comaprisonData) => {
     const response = await api.post('/comparisons', comaprisonData)
-    return response;
+    return response.data;
 }
 
 export const getAllComparisons = async() => {
     const response = await api.get('/comparisons');
-    return response;
+    return response.data;
 }
 
 export const getComparisonById = async(comparisonId) => {
     const response = await api.get(`/comparisons/${comparisonId}`);
-    return response;
+    return response.data;
 }
 
 export const deleteComparisonById = async (comparisonId) => {
