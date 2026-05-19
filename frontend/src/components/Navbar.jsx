@@ -30,7 +30,7 @@ function AppNavbar() {
                 <Nav.Link as={Link} to="/dashboard">
                   Dashboard
                 </Nav.Link>
-                <Nav.Link as={Link} to="/calculator">
+                <Nav.Link as={Link} to="/calculators">
                   Calculator
                 </Nav.Link>
                 <Nav.Link as={Link} to="/comparisons">
