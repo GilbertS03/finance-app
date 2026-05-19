@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
   if (!token) {
     return <Navigate to="login" />;
   }
-  return Children;
+  return children;
 }
 
 export default ProtectedRoute;

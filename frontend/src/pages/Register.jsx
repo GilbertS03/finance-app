@@ -101,10 +101,11 @@ function Register() {
             <Form.Label>Password</Form.Label>
             <InputGroup>
               <Form.Control
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onPaste={(e) => e.preventDefault()}
                 required
               />
               <Button
@@ -143,7 +144,7 @@ function Register() {
             className="w-100"
             disabled={loading}
           >
-            {loading ? "Creatubg account..." : "Create Account"}
+            {loading ? "Creating account..." : "Create Account"}
           </Button>
         </Form>
 
