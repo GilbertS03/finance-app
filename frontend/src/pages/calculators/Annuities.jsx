@@ -10,7 +10,7 @@ import AnnuityPV from "./annuities/AnnuityFromPV";
 import PeriodsFromFV from "./annuities/PeriodsFromFV";
 import PeriodsFromPV from "./annuities/PeriodsFromPV";
 import Perpetuity from "./annuities/Perpetuity";
-import SaveBlock from "./annuities/SaveBlock";
+import SaveBlock from "./SaveBlock";
 
 function Annuities() {
   return (

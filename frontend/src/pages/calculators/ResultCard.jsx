@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../../utils/calculatorHelpers";
+import { formatCurrency } from "../../utils/calculatorHelpers";
 import { Card } from "react-bootstrap";
 function ResultCard({ label, value, stats }) {
   return (

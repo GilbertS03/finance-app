@@ -1,13 +1,13 @@
-// pages/calculators/annuities/AnnuityFromFV.jsx
+// pages/calculators/gradients/ArithmeticPV.jsx
 
 import { useState } from "react";
-import { calcAnnuityFromFV } from "../../../services/calculatorService";
+import { calcArithmeticPV } from "../../../services/calculatorService";
 import { Row, Col, Form, Card, Button, Alert } from "react-bootstrap";
 import SaveBlock from "../SaveBlock";
 import ResultCard from "../ResultCard";
 
-function AnnuityFromFV({ formatCurrency }) {
-  const [F, setF] = useState("");
+function ArithmeticPV({ formatCurrency }) {
+  const [G, setG] = useState("");
   const [i, setI] = useState("");
   const [n, setN] = useState("");
   const [result, setResult] = useState(null);
@@ -20,14 +20,14 @@ function AnnuityFromFV({ formatCurrency }) {
     setResult(null);
     setLoading(true);
     try {
-      const data = await calcAnnuityFromFV(
-        parseFloat(F),
+      const data = await calcArithmeticPV(
+        parseFloat(G),
         parseFloat(i) / 100,
         parseFloat(n),
       );
       setResult(data.result);
     } catch {
-      setError("Calculation failed. Please check your inputs.");
+      setError("Calculation failed. Please check your inputs");
     } finally {
       setLoading(false);
     }
@@ -41,13 +41,14 @@ function AnnuityFromFV({ formatCurrency }) {
             <Card.Title className="fs-6 fw-semibold mb-3">Inputs</Card.Title>
             <Form onSubmit={handleCalculate}>
               <Form.Group className="mb-3">
-                <Form.Label>Future Value (F)</Form.Label>
+                <Form.Label>Gradient Increase/Decrease (G)</Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="e.g. 10000"
-                  value={F}
-                  onChange={(e) => setF(e.target.value)}
-                  min="0"
+                  placeholder="e.g. 1000"
+                  value={G}
+                  onChange={(e) => setG(e.target.value)}
+                  min="-100000"
+                  max="100000"
                   step="any"
                   required
                 />
@@ -100,24 +101,18 @@ function AnnuityFromFV({ formatCurrency }) {
         {result !== null && (
           <>
             <ResultCard
-              label="Required Payment per Period (A/F)"
+              label="Present Value of Arithmetic Gradient (P/G)"
               value={result}
               stats={[
-                { label: "Future Value", value: formatCurrency(parseFloat(F)) },
-                {
-                  label: "Total contributed",
-                  value: formatCurrency(result * parseFloat(n)),
-                },
-                {
-                  label: "Interest earned",
-                  value: formatCurrency(parseFloat(F) - result * parseFloat(n)),
-                },
+                { label: "Gradient", value: formatCurrency(parseFloat(G)) },
+                { label: "Interest", value: parseFloat(i) },
+                { label: "Number of Periods", value: parseFloat(n) },
               ]}
             />
             <SaveBlock
-              calculatorType="annuity_from_fv"
+              calculatorType="present_value_arithmetic_gradient"
               inputValues={{
-                F: parseFloat(F),
+                G: parseFloat(G),
                 i: parseFloat(i),
                 n: parseFloat(n),
               }}
@@ -128,7 +123,7 @@ function AnnuityFromFV({ formatCurrency }) {
         )}
         {result === null && !error && (
           <div className="d-flex align-items-center justify-content-center h-100 text-muted">
-            <p>Enter values and calculate to see results</p>
+            <p>Enter values to see results</p>
           </div>
         )}
       </Col>
@@ -136,4 +131,4 @@ function AnnuityFromFV({ formatCurrency }) {
   );
 }
 
-export default AnnuityFromFV;
+export default ArithmeticPV;

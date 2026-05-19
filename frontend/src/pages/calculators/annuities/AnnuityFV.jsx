@@ -3,18 +3,9 @@
 import { useState } from "react";
 import { calcAnnuityFV } from "../../../services/calculatorService";
 import { Row, Col, Form, Card, Button, Alert } from "react-bootstrap";
-import SaveBlock from "./SaveBlock";
-import ResultCard from "./ResultCard";
+import SaveBlock from "../SaveBlock";
+import ResultCard from "../ResultCard";
 import { CustomTooltip } from "../CustomToolTip";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 
 function AnnuityFV({ formatCurrency }) {
   const [A, setA] = useState("");

@@ -3,17 +3,8 @@
 import { useState } from "react";
 import { calcPerpetuity } from "../../../services/calculatorService";
 import { Row, Col, Form, Card, Button, Alert } from "react-bootstrap";
-import SaveBlock from "./SaveBlock";
-import ResultCard from "./ResultCard";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import SaveBlock from "../SaveBlock";
+import ResultCard from "../ResultCard";
 
 function Perpetuity({ formatCurrency }) {
   const [A, setA] = useState("");

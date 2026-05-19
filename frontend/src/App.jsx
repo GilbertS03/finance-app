@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Calculators from "./pages/calculators/Calculators";
 import TimeValue from "./pages/calculators/TimeValue";
 import Annuities from "./pages/calculators/Annuities";
+import Gradients from "./pages/calculators/Gradients";
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Annuities />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calculators/gradients"
+            element={
+              <ProtectedRoute>
+                <Gradients />
               </ProtectedRoute>
             }
           />

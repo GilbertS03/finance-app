@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Alert, Col, Row, Form, Button } from "react-bootstrap";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 function SaveBlock({ calculatorType, inputValues, result, onError }) {
   const [scenarioName, setScenarioName] = useState("");
