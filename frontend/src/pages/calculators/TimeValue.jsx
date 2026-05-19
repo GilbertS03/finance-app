@@ -1,25 +1,10 @@
 // pages/calculators/TimeValue.jsx
 import { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-} from "recharts";
-import {
-  calcFutureValue,
-  calcPresentValue,
-} from "../../services/calculatorService";
 
 import { formatCurrency, formatPercent } from "../../utils/calculatorHelpers";
 import { CustomTooltip } from "./CustomToolTip";
 import { saveScenario } from "../../services/scenarioService";
-import { useAuth } from "../../context/AuthContext";
 import FutureValueCalc from "./tvm/FutureValueCalc";
 import PresentValueCalc from "./tvm/PresentValueCalc";
 

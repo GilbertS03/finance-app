@@ -1,19 +1,8 @@
 // pages/calculators/Annuities.jsx
 import { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 
 import { formatCurrency } from "../../utils/calculatorHelpers";
-import { saveScenario } from "../../services/scenarioService";
-import { useAuth } from "../../context/AuthContext";
 import AnnuityFromFV from "./annuities/AnnuityFV";
 import AnnuityFromPV from "./annuities/AnnuityFromFV";
 import AnnuityFV from "./annuities/AnnuityFV";

@@ -152,7 +152,7 @@ function Register() {
           className="text-center mt-3 mb-0 text-muted"
           style={{ fontSize: "0.9rem" }}
         >
-          Already have an account? <Link to="login">Sign in</Link>
+          Already have an account? <Link to="/login">Sign in</Link>
         </p>
       </Card>
     </Container>
