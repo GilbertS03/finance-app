@@ -8,7 +8,7 @@ export const registerUser = async(fullName, email, password) => {
         email,
         password
     });
-    return response;
+    return response.data;
 }
 
 export const loginUser = async (email, password) => {
@@ -17,5 +17,5 @@ export const loginUser = async (email, password) => {
     formData.append('password', password);
 
     const response = await api.post('/auth/login', formData);
-    return response;
+    return response.data;
 }
